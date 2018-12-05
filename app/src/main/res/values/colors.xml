@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="plava">#007AFF</color>
+    <color name="crvena">#FF0000</color>
+    <color name="zelena">#00C951</color>
+    <color name="zuta">#FFCC33</color>
+    <color name="siva">#BCBEC0</color>
+    <color name="svijetlo_siva">#EBEBEB</color>
+    <color name="transparentna">#00000000</color>
+    <color name="tamni_text">#43484D</color>
+
+    <color name="plava_sjena">#D2EDFD</color>
+
+</resources>

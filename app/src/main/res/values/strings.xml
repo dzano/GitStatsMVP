@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">GitStats</string>
+
+    <!-- activity_login -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="url">URL to GitRipper</string>
+    <string name="login">Login</string>
+    <string name="usernameError">Username is missing.</string>
+    <string name="passwordError">Password is missing.</string>
+    <string name="usernamePassError">You have entered an invalid username or password.</string>
+    <string name="urlError">This is not a valid GitHub project URL.</string>
+
+    <!-- activity_Tabbed -->
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="action_logout">Log out</string>
+    <string name="sure">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="commitsDownloaded">Commits downloaded:</string>
+    <string name="stop">Stop</string>
+
+    <!-- Tabs -->
+
+    <string name="todayTotal">Today total</string>
+    <string name="dayTotal">Day total</string>
+    <string name="weekTotal">Week total</string>
+    <string name="monthTotal">Month total</string>
+
+    <string name="activity_login_alert_ok">OK</string>
+    <string name="noConnection">No internet connection.</string>
+    <string name="activity_login_loading_msg">Please wait, Loading…</string>
+    <string name="loginFail">Login Failed! Try again later.</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
