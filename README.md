@@ -1,5 +1,3 @@
-# GitStats
-
 This project was my testing task as a final step of hiring process.
 
 It is Android application intended for project managers for fast showcase of commit-statistics at user's personal Github repository. It uses Github API and OAuth v3 authentication for registered users. User can see daily commit hits rate, weekly statistics specifically back and forth by the week, as much as monthly.
