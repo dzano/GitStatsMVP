@@ -16,13 +16,13 @@ import java.util.List;
  * Created by Dzano on 20.11.2018.
  */
 
-public class ReadDatabaseMonth extends AsyncTask<Long, Void, List<Commits>> {
+public class ReadDatabaseMonthTask extends AsyncTask<Long, Void, List<Commits>> {
 
     private Context context;
     private static final String DATABASE_NAME = "commits_db";
     private long start, end, brojDana;
 
-    public ReadDatabaseMonth(Context context) {
+    public ReadDatabaseMonthTask(Context context) {
         this.context = context;
     }
 

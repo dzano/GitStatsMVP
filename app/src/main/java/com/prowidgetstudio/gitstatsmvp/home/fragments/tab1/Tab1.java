@@ -1,4 +1,5 @@
-package com.prowidgetstudio.gitstatsmvp.home.tabs.tab2;
+package com.prowidgetstudio.gitstatsmvp.home.fragments.tab1;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.R;
-import com.prowidgetstudio.gitstatsmvp.charts.WeekChart;
+import com.prowidgetstudio.gitstatsmvp.charts.DayChart;
 import com.prowidgetstudio.gitstatsmvp.customViews.OnSwipeTouchListener;
 import com.prowidgetstudio.gitstatsmvp.repository.RepositoryImpl;
 
@@ -24,20 +25,20 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Tab2 extends Fragment implements Tab2View {
+public class Tab1 extends Fragment implements Tab1View{
 
     private Context context;
     private LineChart chart;
-    private TextView count, date;
+    private TextView dayTotal, count, date;
     private ProgressBar progressBar;
 
-    private int weekToShow = 0; // danas
+    private int dayToShow = 0; // danas
 
-    private Tab2PresenterImpl presenter;
-    
+    private Tab1PresenterImpl presenter;
 
-    public static Tab2 newInstance(String param1, String param2) {
-        Tab2 fragment = new Tab2();
+
+    public static Tab1 newInstance(String param1, String param2) {
+        Tab1 fragment = new Tab1();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -47,28 +48,29 @@ public class Tab2 extends Fragment implements Tab2View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        context = getContext();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         RepositoryImpl repository = new RepositoryImpl(prefs, context);
-        presenter = new Tab2PresenterImpl(this, new Tab2InteractorImpl(), repository);
+        presenter = new Tab1PresenterImpl(this, new Tab1InteractorImpl(), repository);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
         chart = rootView.findViewById(R.id.chart);
         count = (TextView) rootView.findViewById(R.id.count);
         date = (TextView) rootView.findViewById(R.id.date);
+        dayTotal = (TextView) rootView.findViewById(R.id.todayTotal);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(context);
+
         gestureSettings();
-        presenter.timeInMillis(weekToShow);
+        presenter.timeInMillis(dayToShow);
 
         return rootView;
     }
-
 
     @Override
     public void onStart() {
@@ -82,6 +84,25 @@ public class Tab2 extends Fragment implements Tab2View {
         super.onStop();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onDetach() {
+        context = null;
+        super.onDetach();
+    }
+
+    @Override
+    public void isToday(boolean today){
+
+        if(today) dayTotal.setText(R.string.todayTotal);
+        else dayTotal.setText(R.string.dayTotal);
+    }
+
 
     private void gestureSettings() {
 
@@ -89,18 +110,18 @@ public class Tab2 extends Fragment implements Tab2View {
             @Override
             public void onSwipeLeft() {
 
-                if(weekToShow >= 1){
+                if(dayToShow >= 1){
 
-                    weekToShow -= 1;
-                    presenter.timeInMillis(weekToShow);
+                    dayToShow -= 1;
+                    presenter.timeInMillis(dayToShow);
                 }
             }
 
             @Override
             public void onSwipeRight() {
 
-                weekToShow += 1;
-                presenter.timeInMillis(weekToShow);
+                dayToShow += 1;
+                presenter.timeInMillis(dayToShow);
             }
         });
     }
@@ -109,8 +130,8 @@ public class Tab2 extends Fragment implements Tab2View {
     public void showChart(ArrayList<Entry> valLine, ArrayList<Entry> valCircle, int max) {
 
         chart.clear();
-        WeekChart weekChart = new WeekChart(context, chart);
-        weekChart.showData(valLine, valCircle, max);
+        DayChart dayChart = new DayChart(context, chart);
+        dayChart.showData(valLine, valCircle, max);
     }
 
     @SuppressLint("SetTextI18n")
@@ -130,4 +151,5 @@ public class Tab2 extends Fragment implements Tab2View {
         date.setText(datum);
     }
 }
+
 

@@ -1,4 +1,4 @@
-package com.prowidgetstudio.gitstatsmvp.home.tabs.tab2;
+package com.prowidgetstudio.gitstatsmvp.home.fragments.tab3;
 
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.eventBus.TotalEventBus;
@@ -14,38 +14,38 @@ import java.util.List;
  * Created by Dzano on 4.12.2018.
  */
 
-public class Tab2InteractorImpl implements Tab2Interactor {
+public class Tab3InteractorImpl implements Tab3Interactor {
 
     @Override
-    public void timeInMillis(int week, long lastUpdate, Tab2Interactor.OnStartTimeCalculated onStartTimeCalculated) {
+    public void timeInMillis(int month, long lastUpdate, Tab3Interactor.OnStartTimeCalculated onStartTimeCalculated) {
 
         Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -(month));
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        calendar.setFirstDayOfWeek(Calendar.MONDAY);
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 
-        long now = calendar.getTimeInMillis();
-        long weekDuration = 86400000 * 7;
+        long monthStart = calendar.getTimeInMillis();
 
-        // prikazi od sedmice kad je bio posljednji update podataka
-        long weeksAgo = 0;
-        if(now > lastUpdate){
-            long time = now - lastUpdate;
-            weeksAgo = time / weekDuration + 1 + (long)week;
+        // broj dana u datom mjesecu
+        int brojDana = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        }else
-            weeksAgo = (long)week;
+        calendar.set(Calendar.DAY_OF_MONTH, brojDana);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
 
-        long weekStart = now - (weeksAgo * weekDuration);
+        long monthEnd = calendar.getTimeInMillis();
 
-        onStartTimeCalculated.onStartTime(weekStart);
+        onStartTimeCalculated.onStartTime(monthStart, monthEnd, brojDana);
     }
 
     @Override
-    public void calculateData(List<Commits> commitsList, long start, OnDataCalculated onDataCalculated) {
+    public void calculateData(List<Commits> commitsList, long start, int brojDana, OnDataCalculated onDataCalculated) {
 
         ArrayList<Entry> valLine = new ArrayList<>();    // chart line
         ArrayList<Entry> valCircle = new ArrayList<>();   // chart circles
@@ -58,7 +58,7 @@ public class Tab2InteractorImpl implements Tab2Interactor {
 
         int total = 0, average = 0, max = 0, devider = 0;
 
-        for(int i = 0; i < 7; i++){
+        for(int i = 0; i < brojDana; i++){
 
             long myStart = start + (long)(3600000 *24 * i);
             long myEnd = myStart + (long)(3600000 * 24);
@@ -85,18 +85,19 @@ public class Tab2InteractorImpl implements Tab2Interactor {
             dailyTime.add(myStart);
             dailyCount.add(totalCount);
         }
-        ///////////////////////////////////////////////////////////////////////////////
-        //prosjek
-        if (devider != 0)
-            average = total / devider;
 
-        // saljem total za Tab2
-        EventBus.getDefault().post(new TotalEventBus(2, total));
+        ///////////////////////////////////////////////////////////////////////////////
+
+        //prosjek
+        if (devider != 0) average = total / devider;
+
+        // saljem total za Tab3
+        EventBus.getDefault().post(new TotalEventBus(3, total));
 
         // povecavam Y-osu za 30%
-        max = max * 13/10;
-        if(max < 6) max = 6;
-        else if(max%2 != 0) max += 1;
+        max = max * 13 / 10;
+        if (max < 6) max = 6;
+        else if (max % 2 != 0) max += 1;
 
         //###########################################################################
         // podaci za chart
@@ -105,7 +106,9 @@ public class Tab2InteractorImpl implements Tab2Interactor {
         int previousIndex = 0;
         long previousTime = 0;
 
-        for( int i = 0; i < 7; i++){
+        System.out.println("START: " + start);
+
+        for( int i = 0; i < brojDana; i++){
 
             long faktor = 3600000 * 24 * (long)i;
             long dan = 3600000 * 24;
@@ -144,7 +147,6 @@ public class Tab2InteractorImpl implements Tab2Interactor {
 
                                 valCircle.add(new Entry(previousIndex, previousCount, previousTime));
                                 previousCount = 0;
-
                             }
 
                         }else {

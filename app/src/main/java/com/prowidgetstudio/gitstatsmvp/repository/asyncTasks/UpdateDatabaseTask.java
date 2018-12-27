@@ -14,13 +14,13 @@ import java.util.List;
  * Created by Dzano on 3.12.2018.
  */
 
-public class UpdateDatabase extends AsyncTask<List<Commits>, Void, String> {
+public class UpdateDatabaseTask extends AsyncTask<List<Commits>, Void, String> {
 
     @SuppressLint("StaticFieldLeak")
     private Context context;
     private static final String DATABASE_NAME = "commits_db";
 
-    public UpdateDatabase(Context context){
+    public UpdateDatabaseTask(Context context){
         this.context = context.getApplicationContext();
     }
 

@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Dzano on 20.11.2018.
  */
 
-public class ReadDatabase extends AsyncTask<Long, Void, List<Commits>> {
+public class ReadDatabaseTask extends AsyncTask<Long, Void, List<Commits>> {
 
     @SuppressLint("StaticFieldLeak")
     private Context context;
@@ -26,7 +26,7 @@ public class ReadDatabase extends AsyncTask<Long, Void, List<Commits>> {
 
     private long time;
 
-    public ReadDatabase(Context context, int time) {    // 1-day, 2-week, else month
+    public ReadDatabaseTask(Context context, int time) {    // 1-day, 2-week, else month
         this.context = context.getApplicationContext();
         this.time = time;
     }

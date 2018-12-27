@@ -1,10 +1,10 @@
-package com.prowidgetstudio.gitstatsmvp.home.tabs.tab3;
+package com.prowidgetstudio.gitstatsmvp.home.fragments.tab2;
 
 /**
  * Created by Dzano on 4.12.2018.
  */
 
-public interface Tab3Presenter {
+public interface Tab2Presenter {
 
     void timeInMillis(int dan);
 

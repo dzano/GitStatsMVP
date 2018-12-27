@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 
-import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.DeleteDatabase;
-import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.ReadDatabase;
-import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.ReadDatabaseMonth;
-import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.UpdateDatabase;
+import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.DeleteDatabaseTask;
+import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.ReadDatabaseTask;
+import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.ReadDatabaseMonthTask;
+import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.UpdateDatabaseTask;
 import com.prowidgetstudio.gitstatsmvp.repository.database.Commits;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -107,30 +107,30 @@ public class RepositoryImpl implements Repository {
     @Override
     public void appendData(List<Commits> commitsList) {
 
-        UpdateDatabase updateDatabase = new UpdateDatabase(context);
+        UpdateDatabaseTask updateDatabaseTask = new UpdateDatabaseTask(context);
         //noinspection unchecked
-        updateDatabase.execute(commitsList);
+        updateDatabaseTask.execute(commitsList);
     }
 
     @Override
     public void deleteData() {
 
-        DeleteDatabase deleteDatabase = new DeleteDatabase(context);
+        DeleteDatabaseTask deleteDatabaseTask = new DeleteDatabaseTask(context);
         //noinspection unchecked
-        deleteDatabase.execute();
+        deleteDatabaseTask.execute();
     }
 
     @Override
     public void readDatabaseDay(long start, int tab){
 
-        ReadDatabase asyncTask = new ReadDatabase(context, tab);
+        ReadDatabaseTask asyncTask = new ReadDatabaseTask(context, tab);
         asyncTask.execute(start);
     }
 
     @Override
     public void readDatabaseMonth(long start, long end, long brojDana){
 
-        ReadDatabaseMonth asyncTask = new ReadDatabaseMonth(context);
+        ReadDatabaseMonthTask asyncTask = new ReadDatabaseMonthTask(context);
         asyncTask.execute(start, end, brojDana);
     }
 }

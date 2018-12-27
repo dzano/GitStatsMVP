@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.prowidgetstudio.gitstatsmvp.home.tabs.tab1.Tab1;
-import com.prowidgetstudio.gitstatsmvp.home.tabs.tab2.Tab2;
-import com.prowidgetstudio.gitstatsmvp.home.tabs.tab3.Tab3;
+import com.prowidgetstudio.gitstatsmvp.home.fragments.tab1.Tab1;
+import com.prowidgetstudio.gitstatsmvp.home.fragments.tab2.Tab2;
+import com.prowidgetstudio.gitstatsmvp.home.fragments.tab3.Tab3;
 
 /**
  * Created by Dzano on 17.11.2018.

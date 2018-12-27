@@ -1,4 +1,4 @@
-package com.prowidgetstudio.gitstatsmvp.home.tabs.tab1;
+package com.prowidgetstudio.gitstatsmvp.home.fragments.tab3;
 
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.eventBus.ReadDatabaseEventBus;
@@ -16,15 +16,15 @@ import java.util.ArrayList;
  * Created by Dzano on 4.12.2018.
  */
 
-public class Tab1PresenterImpl implements Tab1Presenter {
+public class Tab3PresenterImpl implements Tab3Presenter {
 
-    Tab1View tab1View;
-    Tab1Interactor tab1Interactor;
+    Tab3View tab3View;
+    Tab3Interactor tab3Interactor;
     Repository repository;
 
-    public Tab1PresenterImpl(Tab1View tab1View, Tab1Interactor tab1Interactor, Repository repository) {
-        this.tab1View = tab1View;
-        this.tab1Interactor = tab1Interactor;
+    public Tab3PresenterImpl(Tab3View tab3View, Tab3Interactor tab3Interactor, Repository repository) {
+        this.tab3View = tab3View;
+        this.tab3Interactor = tab3Interactor;
         this.repository = repository;
     }
 
@@ -32,12 +32,11 @@ public class Tab1PresenterImpl implements Tab1Presenter {
     public void timeInMillis(int dan) {
 
         long lastUpdate = repository.readLong("lastUpdate");
-        tab1Interactor.timeInMillis(dan, lastUpdate, new Tab1Interactor.OnStartTimeCalculated() {
+        tab3Interactor.timeInMillis(dan, lastUpdate, new Tab3Interactor.OnStartTimeCalculated() {
             @Override
-            public void onStartTime(long start, boolean today) {
+            public void onStartTime(long start, long end, int brojDana) {
 
-                repository.readDatabaseDay(start, 1);
-                tab1View.isToday(today);
+                repository.readDatabaseMonth(start, end, (long)brojDana);
             }
         });
     }
@@ -55,25 +54,26 @@ public class Tab1PresenterImpl implements Tab1Presenter {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
     public void onMessage(ReadDatabaseEventBus event) {
 
-        if (event.getFrag() == 1) {
+        if (event.getFrag() == 3) {
 
-            tab1View.showTime(event.getStart());
+            tab3View.showTime(event.getStart(), event.getEnd());
 
-            tab1Interactor.calculateData(event.getCommitsList(), event.getStart(), new Tab1Interactor.OnDataCalculated() {
+            tab3Interactor.calculateData(event.getCommitsList(), event.getStart(), (int) event.getBrojDana(), new Tab3Interactor.OnDataCalculated() {
                 @Override
                 public void onCalculated(ArrayList<Entry> valLine, ArrayList<Entry> valCircle, int max) {
-                    tab1View.showChart(valLine, valCircle, max);
+
+                    tab3View.showChart(valLine, valCircle, max);
                 }
             });
+
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
     public void onMessage(TotalEventBus event) {
 
-        if (event.getFrag() == 1) {
-
-            tab1View.setTotal(repository.readInt("commitsCount"), event.getTotal());
+        if (event.getFrag() == 3) {
+            tab3View.setTotal(repository.readInt("commitsCount"), event.getTotal());
         }
     }
 

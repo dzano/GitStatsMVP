@@ -12,13 +12,13 @@ import java.io.File;
  * Created by Dzano on 3.12.2018.
  */
 
-public class DeleteDatabase extends AsyncTask {
+public class DeleteDatabaseTask extends AsyncTask {
 
     @SuppressLint("StaticFieldLeak")
     private Context context;
     private static final String DATABASE_NAME = "commits_db";
 
-    public DeleteDatabase(Context context) {
+    public DeleteDatabaseTask(Context context) {
         this.context = context.getApplicationContext();
     }
 

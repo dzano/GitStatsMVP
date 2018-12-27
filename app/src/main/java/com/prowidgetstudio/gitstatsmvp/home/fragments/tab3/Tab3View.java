@@ -1,4 +1,4 @@
-package com.prowidgetstudio.gitstatsmvp.home.tabs.tab3;
+package com.prowidgetstudio.gitstatsmvp.home.fragments.tab3;
 
 import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;

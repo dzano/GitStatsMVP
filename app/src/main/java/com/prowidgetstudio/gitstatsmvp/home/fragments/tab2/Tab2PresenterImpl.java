@@ -1,4 +1,4 @@
-package com.prowidgetstudio.gitstatsmvp.home.tabs.tab2;
+package com.prowidgetstudio.gitstatsmvp.home.fragments.tab2;
 
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.eventBus.ReadDatabaseEventBus;
