@@ -1,14 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'biznis'
-            keyPassword 'Moviee21'
-            storeFile file('C:/Users/Dzano/Documents/Android/aa.jks')
-            storePassword 'Moviee21'
-        }
-    }
+    
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
     defaultConfig {
