@@ -7,13 +7,14 @@ package com.prowidgetstudio.gitstatsmvp.customViews;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
 import com.prowidgetstudio.gitstatsmvp.R;
 import com.prowidgetstudio.gitstatsmvp.home.OnLogOutDialogClickListener;
+
+import androidx.annotation.NonNull;
 
 
 public class LogOutDialog extends Dialog implements View.OnClickListener {

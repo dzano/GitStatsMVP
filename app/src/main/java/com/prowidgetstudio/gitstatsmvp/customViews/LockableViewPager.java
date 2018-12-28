@@ -1,11 +1,12 @@
 package com.prowidgetstudio.gitstatsmvp.customViews;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by Dzano on 20.11.2018.

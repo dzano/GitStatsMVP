@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.preference.PreferenceManager;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,12 +14,16 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.prowidgetstudio.gitstatsmvp.BaseActivity;
 import com.prowidgetstudio.gitstatsmvp.R;
 import com.prowidgetstudio.gitstatsmvp.repository.RepositoryImpl;
 import com.prowidgetstudio.gitstatsmvp.utils.Errors;
 import com.prowidgetstudio.gitstatsmvp.utils.Utils;
 import com.prowidgetstudio.gitstatsmvp.home.TabbedActivity;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by Dzano on 1.12.2018.

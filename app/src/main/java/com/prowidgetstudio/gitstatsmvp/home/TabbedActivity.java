@@ -8,12 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.prowidgetstudio.gitstatsmvp.BaseActivity;
 import com.prowidgetstudio.gitstatsmvp.R;
 import com.prowidgetstudio.gitstatsmvp.customViews.CustomSwipeToRefresh;
@@ -31,6 +27,11 @@ import com.prowidgetstudio.gitstatsmvp.customViews.LogOutDialog;
 import com.prowidgetstudio.gitstatsmvp.customViews.PagerAdapter;
 import com.prowidgetstudio.gitstatsmvp.login.LoginActivity;
 import com.prowidgetstudio.gitstatsmvp.repository.RepositoryImpl;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public class TabbedActivity extends BaseActivity implements TabbedView{

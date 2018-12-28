@@ -1,7 +1,6 @@
 package com.prowidgetstudio.gitstatsmvp.repository.asyncTasks;
 
 import android.annotation.SuppressLint;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -9,6 +8,8 @@ import com.prowidgetstudio.gitstatsmvp.repository.database.CommitDatabase;
 import com.prowidgetstudio.gitstatsmvp.repository.database.Commits;
 
 import java.util.List;
+
+import androidx.room.Room;
 
 /**
  * Created by Dzano on 3.12.2018.

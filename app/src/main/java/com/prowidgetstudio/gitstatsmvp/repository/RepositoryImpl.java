@@ -19,8 +19,8 @@ import java.util.List;
 
 public class RepositoryImpl implements Repository {
 
-    SharedPreferences prefs;
-    Context context;
+    private SharedPreferences prefs;
+    private Context context;
 
     public RepositoryImpl(SharedPreferences prefs, Context context) {
 

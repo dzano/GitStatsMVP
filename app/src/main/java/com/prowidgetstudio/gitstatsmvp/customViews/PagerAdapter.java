@@ -1,19 +1,21 @@
 package com.prowidgetstudio.gitstatsmvp.customViews;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.prowidgetstudio.gitstatsmvp.home.fragments.tab1.Tab1;
 import com.prowidgetstudio.gitstatsmvp.home.fragments.tab2.Tab2;
 import com.prowidgetstudio.gitstatsmvp.home.fragments.tab3.Tab3;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 /**
  * Created by Dzano on 17.11.2018.
  */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+
+    private int mNumOfTabs;
 
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -26,14 +28,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
 
             case 0:
-                Tab1 tab1 = new Tab1();
-                return tab1;
+                return new Tab1();
+
             case 1:
-                Tab2 tab2 = new Tab2();
-                return tab2;
+                return new Tab2();
+
             case 2:
-                Tab3 tab3 = new Tab3();
-                return tab3;
+                return new Tab3();
 
             default:
                 return null;

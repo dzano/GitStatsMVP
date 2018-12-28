@@ -1,6 +1,6 @@
 package com.prowidgetstudio.gitstatsmvp.repository.asyncTasks;
 
-import android.arch.persistence.room.Room;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -12,18 +12,21 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import androidx.room.Room;
+
 /**
  * Created by Dzano on 20.11.2018.
  */
 
 public class ReadDatabaseMonthTask extends AsyncTask<Long, Void, List<Commits>> {
 
+    @SuppressLint("StaticFieldLeak")
     private Context context;
     private static final String DATABASE_NAME = "commits_db";
     private long start, end, brojDana;
 
     public ReadDatabaseMonthTask(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -22,6 +21,8 @@ import com.prowidgetstudio.gitstatsmvp.customViews.CustomMarkerViewWeek;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by Dzano on 4.12.2018.
