@@ -90,7 +90,7 @@ public class Tab2InteractorImpl implements Tab2Interactor {
         if (devider != 0)
             average = total / devider;
 
-        // saljem total za Tab2
+        // saljem total za Tab2Fragment
         EventBus.getDefault().post(new TotalEventBus(2, total));
 
         // povecavam Y-osu za 30%

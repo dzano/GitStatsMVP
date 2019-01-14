@@ -25,7 +25,7 @@ import java.util.Date;
 
 import androidx.fragment.app.Fragment;
 
-public class Tab3 extends Fragment implements Tab3View {
+public class Tab3Fragment extends Fragment implements Tab3View {
 
     private Context context;
     private LineChart chart;
@@ -36,8 +36,8 @@ public class Tab3 extends Fragment implements Tab3View {
 
     private Tab3PresenterImpl presenter;
 
-    public static Tab3 newInstance(String param1, String param2) {
-        Tab3 fragment = new Tab3();
+    public static Tab3Fragment newInstance(String param1, String param2) {
+        Tab3Fragment fragment = new Tab3Fragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -133,15 +133,16 @@ public class Tab3 extends Fragment implements Tab3View {
         progressBar.setProgress(progress);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void showTime(long start, long end) {
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
         String datum = formatter.format(new Date(start));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
         date.setText(datum);
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter1 = new SimpleDateFormat("MMMM d");
+        SimpleDateFormat formatter1 = new SimpleDateFormat("MMMM d");
         datum = formatter1.format(new Date(start));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
         firstDate.setText(datum);

@@ -69,7 +69,7 @@ public class Tab1InteractorImpl implements Tab1Interactor {
         if (commitsList.size() != 0) average = total / commitsList.size();
 
         System.out.println("T " + total + " A " + average + " m " + max);
-        // saljem total za Tab1
+        // saljem total za Tab1Fragment
         EventBus.getDefault().post(new TotalEventBus(1, total));
 
         // povecavam Y-osu za 30%

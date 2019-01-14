@@ -91,7 +91,7 @@ public class Tab3InteractorImpl implements Tab3Interactor {
         //prosjek
         if (devider != 0) average = total / devider;
 
-        // saljem total za Tab3
+        // saljem total za Tab3Fragment
         EventBus.getDefault().post(new TotalEventBus(3, total));
 
         // povecavam Y-osu za 30%

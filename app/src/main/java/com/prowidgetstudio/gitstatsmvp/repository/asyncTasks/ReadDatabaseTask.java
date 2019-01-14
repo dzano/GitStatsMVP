@@ -1,18 +1,11 @@
 package com.prowidgetstudio.gitstatsmvp.repository.asyncTasks;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.AsyncTask;
-
 import com.prowidgetstudio.gitstatsmvp.eventBus.ReadDatabaseEventBus;
 import com.prowidgetstudio.gitstatsmvp.repository.database.CommitDatabase;
 import com.prowidgetstudio.gitstatsmvp.repository.database.Commits;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
-import androidx.room.Room;
 
 /**
  * Created by Dzano on 20.11.2018.
@@ -20,33 +13,31 @@ import androidx.room.Room;
 
 public class ReadDatabaseTask extends AsyncTask<Long, Void, List<Commits>> {
 
-    @SuppressLint("StaticFieldLeak")
-    private Context context;
-    private static final String DATABASE_NAME = "commits_db";
-    private long start, end;
+    private CommitDatabase commitDatabase;
+    private long start;
 
     private long time;
 
-    public ReadDatabaseTask(Context context, int time) {    // 1-day, 2-week, else month
-        this.context = context.getApplicationContext();
+    public ReadDatabaseTask(CommitDatabase commitDatabase, int time) {    // 1-day, 2-week, else month
+        this.commitDatabase = commitDatabase;
         this.time = time;
     }
 
     @Override
     protected List<Commits> doInBackground(Long... longs) {
 
+        long end = 0;
+
         start = longs[0];
         long ONE_DAY_TIME = 86399999;
         long ONE_WEEK_TIME = 86400000 * 7 - 1;
 
-        if(time == 1)   end = start + ONE_DAY_TIME;
-        else if(time==2) end = start + ONE_WEEK_TIME;
-        else end = start + ONE_DAY_TIME * time;
-
-        CommitDatabase commitDatabase = Room.databaseBuilder(context,
-                CommitDatabase.class, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .build();
+        if(time == 1)
+            end = start + ONE_DAY_TIME;
+        else if(time==2)
+            end = start + ONE_WEEK_TIME;
+        else
+            end = start + ONE_DAY_TIME * time;
 
         return commitDatabase.daoAccess().fetchAllCommitsbyCommitDate(start, end);
     }

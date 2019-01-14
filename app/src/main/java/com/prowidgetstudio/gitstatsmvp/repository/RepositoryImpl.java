@@ -9,9 +9,14 @@ import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.DeleteDatabaseTask;
 import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.ReadDatabaseTask;
 import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.ReadDatabaseMonthTask;
 import com.prowidgetstudio.gitstatsmvp.repository.asyncTasks.UpdateDatabaseTask;
+import com.prowidgetstudio.gitstatsmvp.repository.database.CommitDatabase;
 import com.prowidgetstudio.gitstatsmvp.repository.database.Commits;
+
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import androidx.room.Room;
 
 /**
  * Created by Dzano on 3.12.2018.
@@ -21,6 +26,7 @@ public class RepositoryImpl implements Repository {
 
     private SharedPreferences prefs;
     private Context context;
+    private static final String DATABASE_NAME = "commits_db";
 
     public RepositoryImpl(SharedPreferences prefs, Context context) {
 
@@ -107,7 +113,12 @@ public class RepositoryImpl implements Repository {
     @Override
     public void appendData(List<Commits> commitsList) {
 
-        UpdateDatabaseTask updateDatabaseTask = new UpdateDatabaseTask(context);
+        CommitDatabase commitDatabase = Room.databaseBuilder(context,
+                CommitDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build();
+
+        UpdateDatabaseTask updateDatabaseTask = new UpdateDatabaseTask(commitDatabase);
         //noinspection unchecked
         updateDatabaseTask.execute(commitsList);
     }
@@ -115,22 +126,38 @@ public class RepositoryImpl implements Repository {
     @Override
     public void deleteData() {
 
-        DeleteDatabaseTask deleteDatabaseTask = new DeleteDatabaseTask(context);
-        //noinspection unchecked
+        CommitDatabase commitDatabase = Room.databaseBuilder(context,
+                CommitDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build();
+
+        File databases = new File(context.getApplicationInfo().dataDir + "/databases");
+
+        DeleteDatabaseTask deleteDatabaseTask = new DeleteDatabaseTask(commitDatabase, databases);
         deleteDatabaseTask.execute();
     }
 
     @Override
     public void readDatabaseDay(long start, int tab){
 
-        ReadDatabaseTask asyncTask = new ReadDatabaseTask(context, tab);
+        CommitDatabase commitDatabase = Room.databaseBuilder(context,
+                CommitDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build();
+
+        ReadDatabaseTask asyncTask = new ReadDatabaseTask(commitDatabase, tab);
         asyncTask.execute(start);
     }
 
     @Override
     public void readDatabaseMonth(long start, long end, long brojDana){
 
-        ReadDatabaseMonthTask asyncTask = new ReadDatabaseMonthTask(context);
+        CommitDatabase commitDatabase = Room.databaseBuilder(context,
+                CommitDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build();
+
+        ReadDatabaseMonthTask asyncTask = new ReadDatabaseMonthTask(commitDatabase);
         asyncTask.execute(start, end, brojDana);
     }
 }

@@ -18,8 +18,8 @@ public class RequestLogin {
     public RequestLogin(){
 
         scopes = Arrays.asList("user:email");
-        client_id = "xxx";
-        client_secret = "xxx";
+        client_id = "61ddb79f78cb91c993e6";
+        client_secret = "59faaeaec12669af40ed30c18636e22d26b6d6ff";
         note = "GitStatsMVP";
     }
 
