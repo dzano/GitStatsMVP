@@ -11,6 +11,7 @@
     <string name="usernamePassError">You have entered an invalid username or password.</string>
     <string name="urlError">This is not a valid GitHub project URL.</string>
 
+
     <!-- activity_Tabbed -->
     <string name="day">Day</string>
     <string name="week">Week</string>

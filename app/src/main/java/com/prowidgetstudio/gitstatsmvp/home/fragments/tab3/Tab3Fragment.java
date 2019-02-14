@@ -9,30 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.github.mikephil.charting.charts.LineChart;
-
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.R;
 import com.prowidgetstudio.gitstatsmvp.charts.MonthChart;
 import com.prowidgetstudio.gitstatsmvp.customViews.OnSwipeTouchListener;
+import com.prowidgetstudio.gitstatsmvp.databinding.FragmentTab3Binding;
+import com.prowidgetstudio.gitstatsmvp.home.fragments.databinding.FragmentsData;
 import com.prowidgetstudio.gitstatsmvp.repository.RepositoryImpl;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 public class Tab3Fragment extends Fragment implements Tab3View {
 
     private Context context;
     private LineChart chart;
-    private TextView count, date, firstDate, lastDate;
     private ProgressBar progressBar;
+    private FragmentsData fragmentData;
 
-    private int monthToShow = 0; // danas
+    private int monthToShow = 0; // tekuci mjesec
 
     private Tab3PresenterImpl presenter;
 
@@ -56,12 +54,13 @@ public class Tab3Fragment extends Fragment implements Tab3View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_tab3, container, false);
+        FragmentTab3Binding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab3, container, false);
+        fragmentData = new FragmentsData();
+        binding.setBindingData(fragmentData);
+
+        View rootView = binding.getRoot();
+
         chart = rootView.findViewById(R.id.chart);
-        count = (TextView) rootView.findViewById(R.id.count);
-        date = (TextView) rootView.findViewById(R.id.date);
-        firstDate = (TextView) rootView.findViewById(R.id.firstDate);
-        lastDate = (TextView) rootView.findViewById(R.id.lastDate);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
         gestureSettings();
@@ -124,11 +123,9 @@ public class Tab3Fragment extends Fragment implements Tab3View {
         monthChart.showData(valLine, valCircle, max);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void setTotal(int total, int progress) {
-
-        count.setText(Integer.toString(progress));
+        fragmentData.setCountMonth(Integer.toString(progress));
         progressBar.setMax(total);
         progressBar.setProgress(progress);
     }
@@ -140,16 +137,16 @@ public class Tab3Fragment extends Fragment implements Tab3View {
         SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
         String datum = formatter.format(new Date(start));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
-        date.setText(datum);
+        fragmentData.setDateMonth(datum);
 
         SimpleDateFormat formatter1 = new SimpleDateFormat("MMMM d");
         datum = formatter1.format(new Date(start));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
-        firstDate.setText(datum);
+        fragmentData.setFirstDateMonth(datum);
 
         datum = formatter1.format(new Date(end));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
-        lastDate.setText(datum);
+        fragmentData.setLastDateMonth(datum);
     }
 }
 

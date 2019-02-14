@@ -9,19 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.R;
 import com.prowidgetstudio.gitstatsmvp.charts.WeekChart;
 import com.prowidgetstudio.gitstatsmvp.customViews.OnSwipeTouchListener;
+import com.prowidgetstudio.gitstatsmvp.databinding.FragmentTab2Binding;
+import com.prowidgetstudio.gitstatsmvp.home.fragments.databinding.FragmentsData;
 import com.prowidgetstudio.gitstatsmvp.repository.RepositoryImpl;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 
@@ -29,8 +28,8 @@ public class Tab2Fragment extends Fragment implements Tab2View {
 
     private Context context;
     private LineChart chart;
-    private TextView count, date;
     private ProgressBar progressBar;
+    private FragmentsData fragmentData;
 
     private int weekToShow = 0; // danas
 
@@ -57,10 +56,13 @@ public class Tab2Fragment extends Fragment implements Tab2View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
+        FragmentTab2Binding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab2, container, false);
+        fragmentData = new FragmentsData();
+        binding.setBindingData(fragmentData);
+
+        View rootView = binding.getRoot();
+
         chart = rootView.findViewById(R.id.chart);
-        count = (TextView) rootView.findViewById(R.id.count);
-        date = (TextView) rootView.findViewById(R.id.date);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
         gestureSettings();
@@ -124,11 +126,9 @@ public class Tab2Fragment extends Fragment implements Tab2View {
         weekChart.showData(valLine, valCircle, max);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void setTotal(int total, int progress) {
-
-        count.setText(Integer.toString(progress));
+        fragmentData.setCountWeek(Integer.toString(progress));
         progressBar.setMax(total);
         progressBar.setProgress(progress);
     }
@@ -139,7 +139,7 @@ public class Tab2Fragment extends Fragment implements Tab2View {
         SimpleDateFormat formatter = new SimpleDateFormat("MMMM d");
         String datum = formatter.format(new Date(start));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
-        date.setText(datum);
+        fragmentData.setDateWeek(datum);
     }
 }
 

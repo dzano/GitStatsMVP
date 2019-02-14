@@ -10,19 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.prowidgetstudio.gitstatsmvp.R;
 import com.prowidgetstudio.gitstatsmvp.charts.DayChart;
 import com.prowidgetstudio.gitstatsmvp.customViews.OnSwipeTouchListener;
+import com.prowidgetstudio.gitstatsmvp.databinding.FragmentTab1Binding;
+import com.prowidgetstudio.gitstatsmvp.home.fragments.databinding.FragmentsData;
 import com.prowidgetstudio.gitstatsmvp.repository.RepositoryImpl;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 
@@ -30,8 +29,9 @@ public class Tab1Fragment extends Fragment implements Tab1View{
 
     private Context context;
     private LineChart chart;
-    private TextView dayTotal, count, date;
     private ProgressBar progressBar;
+
+    private FragmentsData fragmentData;
 
     private int dayToShow = 0; // danas
 
@@ -58,11 +58,13 @@ public class Tab1Fragment extends Fragment implements Tab1View{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
+        FragmentTab1Binding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_tab1, container, false);
+        fragmentData = new FragmentsData();
+        binding.setBindingData(fragmentData);
+
+        View rootView = binding.getRoot();
+
         chart = rootView.findViewById(R.id.chart);
-        count = (TextView) rootView.findViewById(R.id.count);
-        date = (TextView) rootView.findViewById(R.id.date);
-        dayTotal = (TextView) rootView.findViewById(R.id.todayTotal);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(context);
@@ -100,8 +102,10 @@ public class Tab1Fragment extends Fragment implements Tab1View{
     @Override
     public void isToday(boolean today){
 
-        if(today) dayTotal.setText(R.string.todayTotal);
-        else dayTotal.setText(R.string.dayTotal);
+        if(today)
+            fragmentData.setTotalDay(getResources().getString(R.string.todayTotal));
+        else
+            fragmentData.setTotalDay(getResources().getString(R.string.dayTotal));
     }
 
 
@@ -135,11 +139,10 @@ public class Tab1Fragment extends Fragment implements Tab1View{
         dayChart.showData(valLine, valCircle, max);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void setTotal(int total, int progress) {
 
-        count.setText(Integer.toString(progress));
+        fragmentData.setCountDay(Integer.toString(progress));
         progressBar.setMax(total);
         progressBar.setProgress(progress);
     }
@@ -150,7 +153,7 @@ public class Tab1Fragment extends Fragment implements Tab1View{
         SimpleDateFormat formatter = new SimpleDateFormat("MMMM d");
         String datum = formatter.format(new Date(start));
         datum = datum.substring(0, 1).toUpperCase() + datum.substring(1);
-        date.setText(datum);
+        fragmentData.setDateDay(datum);
     }
 }
 
